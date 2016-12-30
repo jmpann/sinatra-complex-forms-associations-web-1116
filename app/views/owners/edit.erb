@@ -1,2 +1,31 @@
 <h1>Update Owner</h1>
 
+<form  action="/owners" method="POST">
+  <label>Name:</label>
+
+  <br></br>
+
+  <input type="text" name="owner[name]" value="<%=@owner.name%>">
+
+  <br></br>
+
+  <label>Choose an existing pet:</label>
+
+  <br></br>
+  <%Pet.all.each do |pet|%>
+   <input type="checkbox" name="owner[pet_ids][]" id="<%= pet.id%>" value="<%=pet.id%>" <%='checked' if @owner.pets.include?(pet) %>><%=pet.name%></input>
+ <%end%>
+
+ <!--value is useful in two main situations.
+
+a) You're showing a form with existing data, like someone editing their profile. You want the field to contain the appropriate values, so you fill in the value attribute with their existing data.
+
+b) You're using a select field, so each option needs a value set, or you're using <input type="checkbox"> or <input type="radio">, both of which need to have value set so they actually transmit a value to the backend.-->
+
+ <label>and/or, create a new pet:</label>
+   <br></br>
+   <label>name:</label>
+     <input  type="text" name="pet[name]" id="pet_name"></input>
+   <br></br>
+   <input type="submit" value="Update Owner">
+ </form>
